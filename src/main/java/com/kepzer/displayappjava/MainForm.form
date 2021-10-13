@@ -49,11 +49,6 @@
                   <Component id="jResLabel" max="32767" attributes="0"/>
                   <Component id="jResComboBox" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="jCapacityLabel" max="32767" attributes="0"/>
-                  <Component id="jCapacityComboBox" max="32767" attributes="0"/>
-              </Group>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -65,13 +60,11 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jImageChooserLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jResLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jCapacityLabel" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jImageChooserButton" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jResComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jCapacityComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
               <Component id="jColorDetectorLabel" min="-2" max="-2" attributes="0"/>
@@ -114,9 +107,6 @@
           <StringArray count="0"/>
         </Property>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jResComboBoxActionPerformed"/>
-      </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
@@ -125,21 +115,6 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="&#x420;&#x430;&#x437;&#x440;&#x435;&#x448;&#x435;&#x43d;&#x438;&#x435; &#x44d;&#x43a;&#x440;&#x430;&#x43d;&#x430;"/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="jCapacityLabel">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="&#x420;&#x430;&#x437;&#x440;&#x44f;&#x434;&#x43d;&#x43e;&#x441;&#x442;&#x44c; &#x446;&#x432;&#x435;&#x442;&#x430;"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JComboBox" name="jCapacityComboBox">
-      <Properties>
-        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="0"/>
-        </Property>
-      </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-      </AuxValues>
     </Component>
   </SubComponents>
 </Form>

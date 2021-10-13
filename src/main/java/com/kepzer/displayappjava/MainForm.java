@@ -3,10 +3,12 @@ package com.kepzer.displayappjava;
 
 import com.sun.jna.platform.win32.WinUser;
 import com.sun.jna.Native;
+import java.awt.Dimension;
 import java.awt.DisplayMode;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.Toolkit;
+import java.util.LinkedHashSet;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class MainForm extends javax.swing.JFrame {
@@ -15,7 +17,6 @@ public class MainForm extends javax.swing.JFrame {
     private PixelAsyncDetector pixelAsyncDetector;
     
     
-    private boolean active = true;
     public MainForm() {
         winUser = (WinUserNative) Native.load(WinUserNative.class);
         initComponents();
@@ -25,7 +26,24 @@ public class MainForm extends javax.swing.JFrame {
         thread.start();
         setComboxData();
     }
+    public Dimension screenSize;
     public void setComboxData(){
+        GraphicsDevice[] devices = GraphicsEnvironment.getLocalGraphicsEnvironment()
+           .getScreenDevices();
+        GraphicsDevice dev = devices[0];
+        DisplayMode[] modes = dev.getDisplayModes();
+        LinkedHashSet<Dimension> dimensionSet = new LinkedHashSet<Dimension>();
+        screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        for (int j = 0; j < modes.length; j++) {
+            DisplayMode m = modes[j];
+            dimensionSet.add(new Dimension(m.getWidth(), m.getHeight()));
+        }
+        int index = 0;
+        for(Dimension dimension : dimensionSet){
+            jResComboBox.addItem((int)dimension.getWidth()+"x"+(int)dimension.getHeight());
+            if(screenSize.equals(dimension)) jResComboBox.setSelectedIndex(index);
+            index++;
+        }
     }
     
     @SuppressWarnings("unchecked")
@@ -39,8 +57,6 @@ public class MainForm extends javax.swing.JFrame {
         jColorCodeLabel = new javax.swing.JLabel();
         jResComboBox = new javax.swing.JComboBox<>();
         jResLabel = new javax.swing.JLabel();
-        jCapacityLabel = new javax.swing.JLabel();
-        jCapacityComboBox = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -59,15 +75,7 @@ public class MainForm extends javax.swing.JFrame {
 
         jColorCodeLabel.setText("█████████");
 
-        jResComboBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jResComboBoxActionPerformed(evt);
-            }
-        });
-
         jResLabel.setText("Разрешение экрана");
-
-        jCapacityLabel.setText("Разрядность цвета");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -89,10 +97,6 @@ public class MainForm extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jResLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jResComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jCapacityLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jCapacityComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -101,13 +105,11 @@ public class MainForm extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jImageChooserLabel)
-                    .addComponent(jResLabel)
-                    .addComponent(jCapacityLabel))
+                    .addComponent(jResLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jImageChooserButton)
-                    .addComponent(jResComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jCapacityComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jResComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jColorDetectorLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -125,10 +127,6 @@ public class MainForm extends javax.swing.JFrame {
             winUser.SystemParametersInfoA(0x0014,0, jFileChooser.getSelectedFile().getPath(), WinUser.SWP_NOSENDCHANGING);
         }
     }//GEN-LAST:event_jImageChooserButtonActionPerformed
-
-    private void jResComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jResComboBoxActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jResComboBoxActionPerformed
 
     /**
      * @param args the command line arguments
@@ -165,8 +163,6 @@ public class MainForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> jCapacityComboBox;
-    private javax.swing.JLabel jCapacityLabel;
     private javax.swing.JLabel jColorCodeLabel;
     private javax.swing.JLabel jColorDetectorLabel;
     private javax.swing.JFileChooser jFileChooser;
